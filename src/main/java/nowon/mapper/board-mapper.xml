@@ -10,4 +10,8 @@
 	insert into board(no, subject, content, writer, CREATED_DATE)
 	values (seq_board.nextval, #{subject},#{content},#{writer},sysdate)
 	</insert>
+	<select id="detail" resultType="nowon.domain.dto.BoardDTO">
+	select * from board
+	where no = *{no} 
+	</select>
 </mapper>

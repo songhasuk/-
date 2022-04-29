@@ -16,7 +16,7 @@ import nowon.domain.dto.BoardDTO;
 import nowon.domain.dto.BoardInsertDTO;
 
 
-@WebServlet(urlPatterns = {"/board/list","/board/write", "/board/insert"})  
+@WebServlet(urlPatterns = {"/board/list","/board/write", "/board/insert", "/board/detail"})  
 //각 페이지 별로 주소로 지정해줘야되는 경로를 지정
 // 패턴이 일치하는 것만 처리해주는것
 public class BoardController extends HttpServlet {
@@ -58,7 +58,7 @@ public class BoardController extends HttpServlet {
 			//board-mapper.xml에 있는 select문을 실행해준다.
 			//sql select를 실행해 db에 있는 테이블 값을 검색해서 출력해주는 
 			List<BoardDTO> result=sqlSession.selectList("boardMapper.all");
-			//list 컬렉션을 통해서 테이블에 있는 복수의 튜블을 가변적으로 저장하는 공간을 만들어준다.
+			//list 컬렉..
 			//여기서 SqlSession참조변수.selectList를 해서 list에 해당 쿼리가 저장되는 
 			sqlSession.close();
 			
@@ -88,7 +88,22 @@ public class BoardController extends HttpServlet {
 			
 			//list 페이지 이동 : 응답처리 
 			response.sendRedirect("list");
+		}else if(key.equals("detail")) {
+			String _no = request.getParameter("no");
+			int no = Integer.parseInt(_no);
+			System.out.println(no);
+			SqlSession sqlSession=sqlSessionFactory.openSession();
+			BoardDTO result = sqlSession.selectOne("boardMapper.detail", no);
+			sqlSession.close();
+			request.setAttribute("detail", result);
+			System.out.println(result);
+			
+			
+			
+			path="/WEB-INF/board/detail.jsp";
 		}
+		
+		
 		
 		//페이지 이동 : 응답처리 
 		if(path!=null) {

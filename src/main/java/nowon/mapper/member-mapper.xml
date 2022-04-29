@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<insert id="save" >
+	insert into MEM(email, name, pass, CREATED_DATE)
+	values (#{email},#{name},#{pass},sysdate)
+	</insert>
+	
+	
+	<select id="log" resultType="nowon.domain.dto.BoardDTO">
+	select name, pass 
+	from MEM
+	where name = #{name} and pass = #{pass} 
+	</select>
+	
+</mapper>

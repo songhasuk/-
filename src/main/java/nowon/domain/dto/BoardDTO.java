@@ -11,6 +11,13 @@ public class BoardDTO {
 	private int readCount;//카멜-언더스코어
 	private LocalDateTime createdDate;
 	
+	
+	
+	@Override
+	public String toString() {
+		return "BoardDTO [no=" + no + ", subject=" + subject + ", content=" + content + ", writer=" + writer
+				+ ", readCount=" + readCount + ", createdDate=" + createdDate + "]";
+	}
 	public int getNo() {
 		return no;
 	}
