@@ -9,7 +9,7 @@
 <body>
 <h1>회원가입 페이지</h1>
 
-<form action="insert" method="post">x
+<form action="insert" method="post">
 		<p>
 			<input type="text" name="email" placeholder="이메일">
 		</p>

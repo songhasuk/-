@@ -9,10 +9,11 @@
 	</insert>
 	
 	
-	<select id="log" resultType="nowon.domain.dto.BoardDTO">
-	select name, pass 
+	<select id="log" resultType="int" >
+	select count(*) as cat
 	from MEM
-	where name = #{name} and pass = #{pass} 
+	where email = #{email} and pass = #{pass} 
+	
 	</select>
 	
 </mapper>

@@ -28,7 +28,7 @@ text-decoration-line : none;
 
 .pan input{
  display:inline-block;
- width:45%	;
+ width:95%	;
 }
 
 .size{
@@ -38,13 +38,13 @@ text-decoration-line : none;
  }
 
 
-  
  
  
 h1{ 
  border-width: thin;
  border-style: solid;
 }
+ 
  
 </style>
 
@@ -55,20 +55,19 @@ h1{
 	
 	
 	<div class = "view mid">
-		<img src ="goole.jpg" width ="100px"  height="30px" style="margin: 13px 0 0 0">
+		
 		<h1>【로그인】</h1>
 		
-		<from>
-
+		<form action="select" method="post">
 			 <fieldset>
 			<legend>입력양식</legend>
 	
-			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ㅁ
+			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 				
 				
 				
 				<div>
-				<input type = "email" placeholder ="사용자 이름" value="gmail.com" style="width:95%;  text-align:right; margin:13px 0 0 0;"><br/>
+				<input type = "email"  name="email" placeholder ="이메일"  style="width:95%;  margin:13px 0 0 0;"><br/>
 				</div>
 				
 				<div>
@@ -76,8 +75,8 @@ h1{
 				</div>
 				
 				<div class = "pan">	
-				<input type = "text" placeholder ="아이디"> 
-				<input type = "password" placeholder ="비밀번호">
+				
+				<input type = "password" name="pass" placeholder ="비밀번호">
 				</div>
 				
 				<div>
@@ -90,7 +89,8 @@ h1{
 				</div>	
 				<div>
 				<a href="login.html" style="color: blue; float:left;">대신 로그인하기</a>
-				<input type="submit" value="다음"  style = "float:right; background-color:#6799FF; color:#FFFFFF;" onClick="location.href='nextstep.html'">
+				<input type="submit" value="다음"  style = "float:right; background-color:#6799FF; color:#FFFFFF;">
+				<button type="submit">회원가입</button>
 				</div>
 		
 	

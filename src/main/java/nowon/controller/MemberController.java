@@ -1,6 +1,7 @@
 package nowon.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,7 +20,7 @@ import nowon.domain.dto.MemberDTO;
 import nowon.domain.dto.MemberLogDTO;
 
 
-@WebServlet(urlPatterns = {"/member/join","/member/insert", "/member/login"})
+@WebServlet(urlPatterns = {"/member/join","/member/insert", "/member/select", "/member/login", "/member/logout"})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private SqlSessionFactory sqlSessionFactory;
@@ -67,44 +69,41 @@ public class MemberController extends HttpServlet {
 			
 			//list 페이지 이동 : 응답처리 
 			//response.sendRedirect("list");
-		}else if(key.equals("insert-2")) {
+		}else if(key.equals("select")) {
 			request.setCharacterEncoding("utf-8");
-			String _email = request.getParameter("email");
-			String _pass = request.getParameter("pass");
-			MemberLogDTO _dto = new MemberLogDTO(_email, _pass);
+			String email = request.getParameter("email");
+			String pass = request.getParameter("pass");
+			MemberLogDTO _dto = new MemberLogDTO(email, pass);
 			MemberDTO dto = new MemberDTO();
 			SqlSession sqlSession =sqlSessionFactory.openSession(true);
-			List<MemberDTO> result=sqlSession.selectList("boardMapper.log");
-		
-			
+			int result=sqlSession.selectOne("memberMapper.log", _dto );
 			
 			sqlSession.close();
 			
-			if(result!=null) {
-				System.out.println("n");
+			String msg;
+			HttpSession session = request.getSession();
+			if(result!=0) {
+			msg = "【"+dto.getName()+"님이 로그인 하셨습니다.】<br>";
+			session.setAttribute("msg", msg);
+			response.sendRedirect("/DBConn");
+			}else {
+				msg = "로그인 실패<br>";
+				request.setAttribute("msg", msg);
+				path="/WEB-INF/member/login.jsp";
 			}
+			System.out.println(dto.getName());
 			
 			
-			path="/webapp/index.jsp";
 			
 			//list 페이지 이동 : 응답처리 
 			//response.sendRedirect("list");
 		}else if(key.equals("login")) {
 			
 			path="/WEB-INF/member/login.jsp";
-			
-			/*
-			 * SqlSession sqlSession=sqlSessionFactory.openSession(); //MemberDTO result =
-			 * sqlSession.selectOne("memberMapper.log", result);
-			 * 
-			 * //request.setAttribute("detail", result); //System.out.println(result);
-			 * request.setCharacterEncoding("utf-8"); String email =
-			 * request.getParameter("email"); String pass = request.getParameter("pass");
-			 * MemberDTO dto = new MemberDTO(); MemberLogDTO dto2 = new MemberLogDTO(email,
-			 * pass); sqlSession.close();
-			 */
-			
+			response.sendRedirect("/DBConn");
 		
+		}else if(key.equals("logout")){
+			
 		}
 		
 		
