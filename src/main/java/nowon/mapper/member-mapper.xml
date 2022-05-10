@@ -10,10 +10,15 @@
 	
 	
 	<select id="log" resultType="int" >
-	select count(*) as cat
+	select count(*)
 	from MEM
 	where email = #{email} and pass = #{pass} 
-	
 	</select>
+	
+	<delete id="delete">
+	delete from MEM
+	where email = #{email}
+	
+	</delete>
 	
 </mapper>

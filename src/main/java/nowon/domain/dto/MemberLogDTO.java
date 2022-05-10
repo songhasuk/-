@@ -5,11 +5,13 @@ public class MemberLogDTO {
 	private String pass;
 	
 	
+	
 	public MemberLogDTO(String email, String pass) {
 		super();
 		this.email = email;
 		this.pass = pass;
 	}
+	
 	public String getEmail() {
 		return email;
 	}

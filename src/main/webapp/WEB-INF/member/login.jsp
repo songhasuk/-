@@ -45,7 +45,9 @@ h1{
  border-style: solid;
 }
  
- 
+.msg{
+ color: red;
+}
 </style>
 
 </head>
@@ -64,7 +66,7 @@ h1{
 	
 			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 				
-				
+				<p class ="msg">${msg}</p>
 				
 				<div>
 				<input type = "email"  name="email" placeholder ="이메일"  style="width:95%;  margin:13px 0 0 0;"><br/>
@@ -90,11 +92,10 @@ h1{
 				<div>
 				<a href="login.html" style="color: blue; float:left;">대신 로그인하기</a>
 				<input type="submit" value="다음"  style = "float:right; background-color:#6799FF; color:#FFFFFF;">
-				<button type="submit">회원가입</button>
+				<button type="button" class="navyBtn" onClick="location.href='join'">회원가입</button>
 				</div>
 		
 	
-	</fieldset>		
 
 	</from>	
 	</div>

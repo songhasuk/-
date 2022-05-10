@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,9 +21,10 @@ import nowon.domain.dto.MemberDTO;
 import nowon.domain.dto.MemberLogDTO;
 
 
-@WebServlet(urlPatterns = {"/member/join","/member/insert", "/member/select", "/member/login", "/member/logout"})
+@WebServlet(urlPatterns = {"/member/join","/member/insert", "/member/select", "/member/login", "/member/logout", "/member/delete"})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Object MemberLogDTO = null;
     private SqlSessionFactory sqlSessionFactory;
    
     
@@ -36,6 +38,8 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		HttpSession session = request.getSession();
+		
 		StringBuffer url = request.getRequestURL();
 		System.out.println(url);
 		String uri = request.getRequestURI();
@@ -81,13 +85,15 @@ public class MemberController extends HttpServlet {
 			sqlSession.close();
 			
 			String msg;
-			HttpSession session = request.getSession();
-			if(result!=0) {
-			msg = "【"+dto.getName()+"님이 로그인 하셨습니다.】<br>";
+			
+			
+			
+			if(result != 0) {
+			msg = "【"+_dto.getEmail()+"님이 로그인 하셨습니다.】<br>";
 			session.setAttribute("msg", msg);
 			response.sendRedirect("/DBConn");
 			}else {
-				msg = "로그인 실패<br>";
+				msg = "회원가입부터 하세요<br>";
 				request.setAttribute("msg", msg);
 				path="/WEB-INF/member/login.jsp";
 			}
@@ -100,10 +106,11 @@ public class MemberController extends HttpServlet {
 		}else if(key.equals("login")) {
 			
 			path="/WEB-INF/member/login.jsp";
-			response.sendRedirect("/DBConn");
+			
 		
 		}else if(key.equals("logout")){
-			
+			session.invalidate();
+			response.sendRedirect("/DBConn");
 		}
 		
 		

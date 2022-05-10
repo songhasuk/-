@@ -17,10 +17,11 @@
 	<a href="board/list">게시판</a>
 	<a href="member/join">회원가입</a>
 	<a href="member/login">로그인</a>
+	<a href="member/logout">로그아웃</a>
 	<form>
 	<p class ="msg">${msg}</p>
 	</form>
 	<h1>저희 홈페이지에 오실걸 환영합니다.</h1>
-	<a href="board/logout">게시판</a>
+
 </body>
 </html>
