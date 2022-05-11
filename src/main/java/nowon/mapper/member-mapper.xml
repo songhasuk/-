@@ -9,13 +9,20 @@
 	</insert>
 	
 	
-	<select id="log" resultType="int" >
-	select count(*)
+	<select id="search" resultType="String" >
+	select name
 	from MEM
-	where email = #{email} and pass = #{pass} 
+	where email = #{email} 
 	</select>
 	
-	<delete id="delete">
+	<select id="log" resultType="int" >
+	select  count(*)
+	from MEM
+	where email = #{email} and pass = #{pass} 
+	
+	</select>
+	
+	<delete id="remove" >
 	delete from MEM
 	where email = #{email}
 	

@@ -8,14 +8,14 @@
 </head>
 <body>
 
- <form action="delete" method="post">
+ <form action="remove" method="post">
 		<p>
 			<input type="text" name="email" placeholder="이메일">
 		</p>
 		<p>
 			<button type="submit">계정탈퇴하기</button>
 		</p>
-	</form>
+</form>
 
 </body>
 </html>

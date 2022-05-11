@@ -3,6 +3,7 @@ package nowon.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +22,8 @@ import nowon.domain.dto.MemberDTO;
 import nowon.domain.dto.MemberLogDTO;
 
 
-@WebServlet(urlPatterns = {"/member/join","/member/insert", "/member/select", "/member/login", "/member/logout", "/member/delete"})
+
+@WebServlet(urlPatterns = {"/member/join","/member/insert", "/member/select", "/member/login", "/member/logout", "/member/delete", "/member/remove" })
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Object MemberLogDTO = null;
@@ -60,10 +62,11 @@ public class MemberController extends HttpServlet {
 			SqlSession sqlSession =sqlSessionFactory.openSession(true);
 			
 			int n = sqlSession.insert("memberMapper.save", dto);
+			
 			sqlSession.close();
 			System.out.println(n+"번째 회원가입");
 			
-			String msg = name+"님! 회원가입 축하합니다.<br>"
+			String msg = dto.getName()+"님! 회원가입 축하합니다.<br>"
 						+"로그인 후 이용 가능합니다";
 			request.setAttribute("msg", msg);
 			path="/WEB-INF/member/login.jsp";
@@ -80,7 +83,9 @@ public class MemberController extends HttpServlet {
 			MemberLogDTO _dto = new MemberLogDTO(email, pass);
 			MemberDTO dto = new MemberDTO();
 			SqlSession sqlSession =sqlSessionFactory.openSession(true);
-			int result=sqlSession.selectOne("memberMapper.log", _dto );
+			int result=sqlSession.selectOne("memberMapper.log", _dto);
+			
+			String such = sqlSession.selectOne("memberMapper.search", _dto);
 			
 			sqlSession.close();
 			
@@ -89,7 +94,7 @@ public class MemberController extends HttpServlet {
 			
 			
 			if(result != 0) {
-			msg = "【"+_dto.getEmail()+"님이 로그인 하셨습니다.】<br>";
+			msg = "【"+such+"님이 로그인 하셨습니다.】<br>";
 			session.setAttribute("msg", msg);
 			response.sendRedirect("/DBConn");
 			}else {
@@ -97,7 +102,7 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("msg", msg);
 				path="/WEB-INF/member/login.jsp";
 			}
-			System.out.println(dto.getName());
+			System.out.println(such);
 			
 			
 			
@@ -111,7 +116,19 @@ public class MemberController extends HttpServlet {
 		}else if(key.equals("logout")){
 			session.invalidate();
 			response.sendRedirect("/DBConn");
+		}else if(key.equals("delete")) {
+			
+			path="/WEB-INF/member/delete.jsp";
+		}else if(key.equals("remove")) {
+			request.setCharacterEncoding("utf-8");
+			String email = request.getParameter("email");
+			SqlSession sqlSession =sqlSessionFactory.openSession(true);
+			sqlSession.delete("memberMapper.remove", email);
+			sqlSession.close();
+			
+			response.sendRedirect("/DBConn");
 		}
+		
 		
 		
 		
